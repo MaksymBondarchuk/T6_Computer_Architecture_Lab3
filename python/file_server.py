@@ -11,12 +11,15 @@ collection_name = 'labs.dbxml'
 
 
 # CREATE
-def add(name, about, status):
+# Creates lab with name and fields about and state
+# Returns result of updating (error or success)
+# If lab with this name already exist returns error message
+def add(name, about, state):
     mgr = XmlManager()
     container = mgr.openContainer(collection_name)
     uc = mgr.createUpdateContext()
     try:
-        container.putDocument(name, '<lab><about>%s</about><state>%s</state></lab>' % (about, status), uc)
+        container.putDocument(name, '<lab><about>%s</about><state>%s</state></lab>' % (about, state), uc)
     except:
         return error_file_exists
     return result_OK
