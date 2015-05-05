@@ -1,0 +1,13 @@
+Read
+query 'collection("labs.dbxml")/lab/name/string()'
+query 'collection("labs")'
+
+Update
+query 'replace value of node collection("dbxml:/labs.dbxml")/lab/name with "Lab One"
+query 'collection("labs.dbxml")/name="Lab3"'
+
+
+Add
+putDocument lab1 <lab><name>Lab1</name><state>Completed</state></lab>
+putDocument lab3 <lab><name>Lab3</name><state>In_process</state></lab>
+putDocument lab4 <lab><name>Lab4</name><state>"Haven't even seen"</state></lab>
