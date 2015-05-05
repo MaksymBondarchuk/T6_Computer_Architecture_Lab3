@@ -1,9 +1,9 @@
-__author__ = 'Maxim'
-
 import xml.etree.ElementTree as ET
 from dbxml import *
 
-error_file_exists = 'already exist with this name'
+__author__ = 'Maxim'
+
+error_file_exists = 'Lab with this name already exists'
 result_OK = 'OK'
 error_no_file = 'No file with this name'
 
@@ -19,7 +19,8 @@ def add(name, about, state):
     container = mgr.openContainer(collection_name)
     uc = mgr.createUpdateContext()
     try:
-        container.putDocument(name, '<lab><about>%s</about><state>%s</state></lab>' % (about, state), uc)
+        container.putDocument(name, '<lab><about>%s</about><state>%s'
+                                    '</state></lab>' % (about, state), uc)
     except:
         return error_file_exists
     return result_OK
@@ -30,6 +31,7 @@ def add(name, about, state):
 # Returns JSON-style list of dictionaries
 def read():
     mgr = XmlManager()
+    # Unused, but in other case function doesn't work
     container = mgr.openContainer("labs.dbxml")
     qc = mgr.createQueryContext()
     results = mgr.query("collection('%s')" % collection_name, qc)
@@ -40,7 +42,8 @@ def read():
         tree = ET.fromstring(value.asString())
         about = tree.find('about').text
         state = tree.find('state').text
-        items.append({'name': document.getName(), 'about': about, 'state': state})
+        items.append({'name': document.getName(),
+                      'about': about, 'state': state})
         # print document.getName(), "=", value.asString()
     return items
 
@@ -96,11 +99,10 @@ print('Before')
 for item in read():
     print(item)
 
-# print('\n' + add('Lab 3', 'CRUD, REST', 'We\'re working on'))
+# print('\n' + add('Lab 5', 'Unknown', 'Don\'t know nothing about it'))
 # print('\n' + delete('Lab 3'))
-print('\n' + update('Lab 1', 'state', 'Completed'))
+# print('\n' + update('Lab 1', 'state', 'Completed'))
 
 print('\nAfter')
 for item in read():
     print(item)
-
