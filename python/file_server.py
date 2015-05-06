@@ -42,8 +42,8 @@ def read():
         tree = ET.fromstring(value.asString())
         about = tree.find('about').text
         state = tree.find('state').text
-        items.append({'name': document.getName(),
-                      'about': about, 'state': state})
+        items.append({"name": document.getName(),
+                      "about": about, "state": state})
         # print document.getName(), "=", value.asString()
     return items
 
@@ -95,14 +95,14 @@ def delete(name):
 
 
 # Testing
-print('Before')
-for item in read():
-    print(item)
+# print('Before')
+# for item in read():
+#     print(item)
 
 # print('\n' + add('Lab 5', 'Unknown', 'Don\'t know nothing about it'))
 # print('\n' + delete('Lab 3'))
 # print('\n' + update('Lab 1', 'state', 'Completed'))
 
-print('\nAfter')
-for item in read():
-    print(item)
+# print('\nAfter')
+# for item in read():
+#     print(item)
