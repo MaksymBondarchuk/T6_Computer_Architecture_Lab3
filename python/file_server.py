@@ -1,3 +1,4 @@
+from _bsddb import DBEnv
 import xml.etree.ElementTree as ET
 from dbxml import *
 
@@ -54,6 +55,7 @@ def read():
 def update(name, field, new_value):
     mgr = XmlManager()
     uc = mgr.createUpdateContext()
+
     container = mgr.openContainer("labs.dbxml")
 
     document = container.getDocument(name)
@@ -62,10 +64,12 @@ def update(name, field, new_value):
 
     if field == 'name':
         try:
-            container.deleteDocument(name, uc)
-            container.putDocument(new_value, content, uc)
+            document.setName(new_value)
+            container.updateDocument(document, uc)
+            # container.deleteDocument(name, uc)
+            # container.putDocument(new_value, content, uc)
         except:
-            container.putDocument(name, content, uc)
+            # container.putDocument(name, content, uc)
             return error_file_exists
         return result_OK
 
@@ -74,8 +78,11 @@ def update(name, field, new_value):
 
     content_new = ET.tostring(tree, encoding="utf8", method="html")
 
-    container.deleteDocument(name, uc)
-    container.putDocument(name, content_new, uc)
+    document.setContent(content_new)
+    container.updateDocument(document, uc)
+
+    # container.deleteDocument(name, uc)
+    # container.putDocument(name, content_new, uc)
     return result_OK
 
 
@@ -101,7 +108,7 @@ def delete(name):
 
 # print('\n' + add('Lab 5', 'Unknown', 'Don\'t know nothing about it'))
 # print('\n' + delete('Lab 3'))
-# print('\n' + update('Lab 1', 'state', 'Completed'))
+# print('\n' + update('Lab 1', 'about', 'Just banks'))
 
 # print('\nAfter')
 # for item in read():

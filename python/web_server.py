@@ -34,6 +34,8 @@ def bottle_read():
 def bottle_delete():
     global result
     result = delete(request.body.read())
+    if result == result_OK:
+        result = 'Deleted successfully'
 
 
 # CREATE
@@ -44,6 +46,8 @@ def bottle_add():
     state = request.forms.get('state')
     global result
     result = add(name, about, state)
+    if result == result_OK:
+        result = 'Added successfully'
 
 
 # UPDATE
@@ -52,9 +56,10 @@ def bottle_update():
     name = request.forms.get('name')
     field = request.forms.get('field')
     value = request.forms.get('value')
-    print(name)
     global result
     result = update(name, field, value)
+    if result == result_OK:
+        result = 'Changed successfully'
 
 
 # Returns result of the last operation

@@ -60,6 +60,8 @@ function deleteLab(name) {
     $.post("/delete", name, function () {
         read();
     });
+
+    showResult();
 }
 
 
@@ -79,6 +81,8 @@ function addLab() {
     $.post("/add", data, function () {
         read();
     });
+
+    showResult();
 }
 
 
@@ -94,15 +98,20 @@ function updateLab() {
         read();
     });
 
+    showResult();
+}
+
+
+function showResult() {
     $.get("/result", function (data) {
         var whatWeGot = JSON.parse(data);
 
         var resultP = $('.result')[0];
         resultP.innerHTML = whatWeGot['result'];
+        resultP.style.color = whatWeGot['color'];
 
-        //if (whatWeGot['color'] == 'red')
-            resultP.style.color = whatWeGot['result'];
-        //else
-            resultP.style.color = whatWeGot['result'];
+        setTimeout(function () {
+            resultP.innerHTML = "";
+        }, 5000);
     });
 }
