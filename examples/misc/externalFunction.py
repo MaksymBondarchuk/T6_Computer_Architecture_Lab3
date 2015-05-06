@@ -46,7 +46,7 @@ class myFunction(XmlExternalFunction):
         del self
         
     def __del__(self):
-        print "myFunction -- del"
+        print "myFunction -- deleteLab"
 
 class myResolver(XmlResolver):
     def __init__(self):
@@ -62,7 +62,7 @@ class myResolver(XmlResolver):
             print "myResolver -- could not resolve function"
     
     def __del__(self):
-        print "myResolver -- del"
+        print "myResolver -- deleteLab"
 
 #
 # The main program

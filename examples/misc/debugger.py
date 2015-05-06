@@ -52,7 +52,7 @@ class myDebugListener(XmlDebugListener):
             i += 1
 
     def __del__(self):
-        print "myDebugListener -- del"
+        print "myDebugListener -- deleteLab"
 
 
 # utility function
