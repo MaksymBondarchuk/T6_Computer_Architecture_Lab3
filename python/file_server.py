@@ -1,4 +1,3 @@
-from _bsddb import DBEnv
 import xml.etree.ElementTree as ET
 from dbxml import *
 
