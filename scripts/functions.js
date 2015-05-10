@@ -35,7 +35,7 @@ function read() {
             cellState.className = "TableSimpleCell";
             var cellButtons = newRow.insertCell(3);
             //var
-            cellButtons.innerHTML = '<input type="button" value="Delete" onClick="deleteLab(\'' + name + '\')"/>';
+            cellButtons.innerHTML = '<input type="button" id="'+ name + '" value="Delete" onClick="deleteLab(\'' + name + '\')"/>';
             cellButtons.className = "TableButtonCell";
         }
 

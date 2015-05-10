@@ -40,6 +40,15 @@ class TestLab(unittest.TestCase):
         checktext = body.text
         assert "Lab NNN" in checktext
 
+    def test_delete(self):
+        driver = self.driver
+        driver.get("http://localhost:8080")
+        driver.find_element_by_id("Lab NNN").click()
+        time.sleep(2)
+        driver.get("http://localhost:8080")
+        body = driver.find_element_by_tag_name("body")
+        checktext = body.text
+        assert "Lab NNN" not in checktext
 
     def tearDown(self):
         self.driver.close()
