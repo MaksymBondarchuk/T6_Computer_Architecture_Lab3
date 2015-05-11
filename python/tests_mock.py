@@ -28,25 +28,23 @@ class Test(unittest.TestCase):
     def test_file_server_read(self):
         assert file_server.read()
 
-    def test_file_server_update(self):
-        name1 = 'Lab for test'
-        name2 = 'Lab for test 2'
-        file_server.add(name1)
-        file_server.add(name2)
-        for item in file_server.read():
-            print(item)
-        self.assertEqual(file_server.error_file_exists,
-                         file_server.update(name1, 'name', name2))
-        self.assertEqual(file_server.result_OK,
-                         file_server.update(name1, 'about', 'About something'))
-        file_server.delete(name1)
-        file_server.delete(name2)
-
     def test_file_server_delete(self):
         self.assertEquals(file_server.result_OK,
                           file_server.delete('Lab for test'))
         self.assertEquals(file_server.error_no_file,
                           file_server.delete('Lab for test'))
+
+    def test_file_server_update(self):
+        name1 = 'Some lab for test'
+        name2 = 'Some lab for test 2'
+        file_server.add(name1)
+        file_server.add(name2)
+        self.assertEqual(file_server.result_OK,
+                         file_server.update(name1, 'about', 'About something'))
+        self.assertEqual(file_server.error_file_exists,
+                         file_server.update(name1, 'name', name2))
+        file_server.delete(name1)
+        file_server.delete(name2)
 
 
 if __name__ == '__main__':
