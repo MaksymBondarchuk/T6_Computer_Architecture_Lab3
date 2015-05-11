@@ -36,6 +36,7 @@ def read():
     qc = mgr.createQueryContext()
     results = mgr.query("collection('%s')" % collection_name, qc)
     results.reset()
+
     items = []
     for value in results:
         document = value.asDocument()
@@ -44,7 +45,6 @@ def read():
         state = tree.find('state').text
         items.append({"name": document.getName(),
                       "about": about, "state": state})
-        # print document.getName(), "=", value.asString()
     return items
 
 
@@ -100,15 +100,16 @@ def delete(name):
     return result_OK
 
 
-# Testing
-# print('Before')
-# for item in read():
-#     print(item)
+if __name__ == '__main__':
+    # Testing
+    print('Before')
+    for item in read():
+        print(item)
 
-# print('\n' + add('Lab 5', 'Unknown', 'Don\'t know nothing about it'))
-# print('\n' + delete('Lab 3'))
-# print('\n' + update('Lab 1', 'about', 'Just banks'))
+    # # print('\n' + add('Lab 5', 'Unknown', 'Don\'t know nothing about it'))
+    # # print('\n' + delete('Lab 3'))
+    print('\n' + update('Lab 5', 'about', 'Don\'t know'))
 
-# print('\nAfter')
-# for item in read():
-#     print(item)
+    print('\nAfter')
+    for item in read():
+        print(item)

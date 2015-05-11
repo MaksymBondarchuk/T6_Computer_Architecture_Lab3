@@ -5,6 +5,7 @@ from file_server import *
 
 result = ''
 
+
 # Returns static file. Used for getting JavaScript files from /scripts folder
 @bottle.get('/scripts/:filename#.*#')
 def send_static_javascript(filename):
@@ -23,21 +24,6 @@ def index():
     return static_file('index.html', root='../HTML/')
 
 
-# READ
-@get('/read')
-def bottle_read():
-    return json.dumps(read())
-
-
-# DELETE
-@post('/delete')
-def bottle_delete():
-    global result
-    result = delete(request.body.read())
-    if result == result_OK:
-        result = 'Deleted successfully'
-
-
 # CREATE
 @post('/add')
 def bottle_add():
@@ -48,6 +34,12 @@ def bottle_add():
     result = add(name, about, state)
     if result == result_OK:
         result = 'Added successfully'
+
+
+# READ
+@get('/read')
+def bottle_read():
+    return json.dumps(read())
 
 
 # UPDATE
@@ -62,13 +54,23 @@ def bottle_update():
         result = 'Changed successfully'
 
 
+# DELETE
+@post('/delete')
+def bottle_delete():
+    global result
+    result = delete(request.body.read())
+    if result == result_OK:
+        result = 'Deleted successfully'
+
+
 # Returns result of the last operation
 @get('/result')
-def bottle_read():
+def bottle_result():
     # print(result)
     if result == error_file_exists:
         return json.dumps({'color': 'red', 'result': result})
     return json.dumps({'color': 'green', 'result': result})
 
 
-run(host='127.0.0.1', port=8080, debug=True)
+if __name__ == '__main__':
+    run(host='127.0.0.1', port=8080, debug=True)
