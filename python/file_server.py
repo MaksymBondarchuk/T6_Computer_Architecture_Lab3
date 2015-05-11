@@ -14,7 +14,7 @@ collection_name = 'labs.dbxml'
 # Creates lab with name and fields about and state
 # Returns result of updating (error or success)
 # If lab with this name already exist returns error message
-def add(name, about='', state=''):
+def add(name, about=' ', state=' '):
     mgr = XmlManager()
     container = mgr.openContainer(collection_name)
     uc = mgr.createUpdateContext()
@@ -101,8 +101,8 @@ if __name__ == '__main__':
     for item in read():
         print(item)
 
-    # # print('\n' + add('Lab 5', 'Unknown', 'Don\'t know nothing about it'))
-    # # print('\n' + delete('Lab 3'))
+    # print('\n' + add('Lab 5', 'Unknown', 'Don\'t know nothing about it'))
+    # print('\n' + delete('Lab for test'))
     # print('\n' + update('Lab 5', 'about', 'Don\'t know'))
 
     print('\nAfter')

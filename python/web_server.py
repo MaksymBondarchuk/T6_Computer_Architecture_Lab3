@@ -1,7 +1,8 @@
 import json
 from bottle import *
 import bottle
-from file_server import *
+# from file_server import *
+import file_server
 
 result = ''
 
@@ -31,15 +32,16 @@ def bottle_create():
     about = request.forms.get('about')
     state = request.forms.get('state')
     global result
-    result = add(name, about, state)
-    if result == result_OK:
+    result = file_server.add(name, about, state)
+    if result == file_server.result_OK:
         result = 'Added successfully'
 
 
 # READ
 @get('/read')
 def bottle_read():
-    return json.dumps(read())
+    return json.dumps(file_server.read())
+    # return file_server.read()
 
 
 # UPDATE
@@ -49,8 +51,8 @@ def bottle_update():
     field = request.forms.get('field')
     value = request.forms.get('value')
     global result
-    result = update(name, field, value)
-    if result == result_OK:
+    result = file_server.update(name, field, value)
+    if result == file_server.result_OK:
         result = 'Changed successfully'
 
 
@@ -58,8 +60,8 @@ def bottle_update():
 @post('/delete')
 def bottle_delete():
     global result
-    result = delete(request.body.read())
-    if result == result_OK:
+    result = file_server.delete(request.body.read())
+    if result == file_server.result_OK:
         result = 'Deleted successfully'
 
 
@@ -67,7 +69,7 @@ def bottle_delete():
 @get('/result')
 def bottle_result():
     # print(result)
-    if result == error_file_exists:
+    if result == file_server.error_file_exists:
         return json.dumps({'color': 'red', 'result': result})
     return json.dumps({'color': 'green', 'result': result})
 
