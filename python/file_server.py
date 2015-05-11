@@ -108,7 +108,7 @@ if __name__ == '__main__':
 
     # # print('\n' + add('Lab 5', 'Unknown', 'Don\'t know nothing about it'))
     # # print('\n' + delete('Lab 3'))
-    print('\n' + update('Lab 5', 'about', 'Don\'t know'))
+    # print('\n' + update('Lab 5', 'about', 'Don\'t know'))
 
     print('\nAfter')
     for item in read():
