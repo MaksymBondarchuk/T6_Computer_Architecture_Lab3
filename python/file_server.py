@@ -14,7 +14,7 @@ collection_name = 'labs.dbxml'
 # Creates lab with name and fields about and state
 # Returns result of updating (error or success)
 # If lab with this name already exist returns error message
-def add(name, about, state):
+def add(name, about='', state=''):
     mgr = XmlManager()
     container = mgr.openContainer(collection_name)
     uc = mgr.createUpdateContext()
@@ -65,10 +65,7 @@ def update(name, field, new_value):
         try:
             document.setName(new_value)
             container.updateDocument(document, uc)
-            # container.deleteDocument(name, uc)
-            # container.putDocument(new_value, content, uc)
         except:
-            # container.putDocument(name, content, uc)
             return error_file_exists
         return result_OK
 
@@ -80,8 +77,6 @@ def update(name, field, new_value):
     document.setContent(content_new)
     container.updateDocument(document, uc)
 
-    # container.deleteDocument(name, uc)
-    # container.putDocument(name, content_new, uc)
     return result_OK
 
 

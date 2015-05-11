@@ -24,23 +24,29 @@ class Test(unittest.TestCase):
         # assert not res
 
     # Testing file server
-    def test_create(self):
-        self.assertEqual(file_server.error_file_exists,
-                         file_server.add('Lab 1', 'About', 'State'))
+    def test_file_server_create(self):
         self.assertEqual(file_server.result_OK,
-                         file_server.add('Lab for test', 'About', 'State'))
+                         file_server.add('Lab for test'))
+        self.assertEqual(file_server.error_file_exists,
+                         file_server.add('Lab for test'))
 
-    def test_delete(self):
+    def test_file_server_read(self):
+        assert file_server.read()
+
+    def test_file_server_update(self):
+        file_server.add('Lab for test 2')
+        file_server.add('Lab for test')
+        self.assertEqual(file_server.error_file_exists,
+                         file_server.update('Lab for test', 'name', 'Lab for test 2'))
+        file_server.delete('Lab for test 2')
+        file_server.delete('Lab for test')
+
+    def test_file_server_delete(self):
         self.assertEquals(file_server.error_no_file,
-                          file_server.delete('Not existed lab'),
-                          'Testing for deleting nothing')
+                          file_server.delete('Not existed lab'))
         self.assertEquals(file_server.result_OK,
-                          file_server.delete('Lab for test'),
-                          'Testing for deleting existing lab')
+                          file_server.delete('Lab for test'))
 
 
 if __name__ == '__main__':
-    # mock = Mock(return_value='Heil')
-    # mock.return_value = 'Heil'
-    # print(mock())
     unittest.main()

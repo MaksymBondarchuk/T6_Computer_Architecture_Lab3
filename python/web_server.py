@@ -25,8 +25,8 @@ def index():
 
 
 # CREATE
-@post('/add')
-def bottle_add():
+@post('/create')
+def bottle_create():
     name = request.forms.get('name')
     about = request.forms.get('about')
     state = request.forms.get('state')

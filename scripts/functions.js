@@ -5,12 +5,33 @@
 
 function load() {
     //setInterval(function () {
-    read();
+    readLabs();
     //}, 5000)
 }
 
 
-function read() {
+function createLab() {
+    var inputName = $('#nameAdd')[0];
+    var inputAbout = $('#aboutAdd')[0];
+    var inputState = $('#stateAdd')[0];
+    var name = inputName.value;
+    var about = inputAbout.value;
+    var state = inputState.value;
+    inputName.value = "";
+    inputAbout.value = "";
+    inputState.value = "";
+
+    var data = "name=" + name + "&about=" + about + "&state=" + state;
+
+    $.post("/create", data, function () {
+        readLabs();
+    });
+
+    showResult();
+}
+
+
+function readLabs() {
     $.get("/read", function (data) {
         var labs = JSON.parse(data);
         var table = $("table")[0];
@@ -56,36 +77,6 @@ function read() {
 }
 
 
-function deleteLab(name) {
-    $.post("/delete", name, function () {
-        read();
-    });
-
-    showResult();
-}
-
-
-function addLab() {
-    var inputName = $('#nameAdd')[0];
-    var inputAbout = $('#aboutAdd')[0];
-    var inputState = $('#stateAdd')[0];
-    var name = inputName.value;
-    var about = inputAbout.value;
-    var state = inputState.value;
-    inputName.value = "";
-    inputAbout.value = "";
-    inputState.value = "";
-
-    var data = "name=" + name + "&about=" + about + "&state=" + state;
-
-    $.post("/add", data, function () {
-        read();
-    });
-
-    showResult();
-}
-
-
 function updateLab() {
     var selectName = $('#nameChange')[0];
     var selectField = $('#fieldChange')[0];
@@ -95,7 +86,16 @@ function updateLab() {
     inputValue.value = '';
 
     $.post("/update", data, function () {
-        read();
+        readLabs();
+    });
+
+    showResult();
+}
+
+
+function deleteLab(name) {
+    $.post("/delete", name, function () {
+        readLabs();
     });
 
     showResult();
